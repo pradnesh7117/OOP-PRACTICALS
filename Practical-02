@@ -1,1 +1,128 @@
+#include<iostream>
+#include<string>
+using namespace std;
 
+class student
+{
+    private:
+    int rollnumber;
+    string name;
+    string course;
+    int admissionyear;
+    public:
+    void inputdetails()
+    {
+        cout<<"enter roll number:";
+        cin>>rollnumber;
+        cin.ignore();
+
+        cout<<"enter name:";
+        getline(cin,name);
+
+        cout<<"enter course:";
+        getline(cin,course);
+
+        cout<<"enter admission year:";
+        cin>>admissionyear;
+        cout<<"------------------------\n";         
+    }
+    void displaydetails() const
+    {
+        cout<<"Roll number:"<<rollnumber<<endl;
+        cout<<"Name:"<<name<<endl;
+        cout<<"Course:"<<course<<endl;
+        cout<<"Admission year:"<<admissionyear<<endl;
+        cout<<"---------------"<<endl;    
+    }
+    int getRollnumber() const
+    {
+        return rollnumber;
+    }
+};
+int main()
+{
+    const int MAX_STUDENTS = 100;
+    student database[MAX_STUDENTS];
+    int currentcount = 0;
+    int choice;
+    cout<<"====College record digitalization system ======\n";
+    do
+        {
+            cout<<"\n1.Add new student record\n";
+            cout<<"\n2.Display all student records\n";
+            cout<<"\n3.Search student by roll number:\n";
+            cout<<"\n4.Exit\n";
+            cout<<"Enter your choice:";
+            cin>>choice;
+            cout<<"\n";
+
+            switch(choice)
+                {
+                    case 1:
+                    if (currentcount < MAX_STUDENTS)
+                    {
+                        cout<<"----Enter details for student"
+                            <<currentcount + 1 <<"-------\n";
+                        database[currentcount].inputdetails();
+                        currentcount++;
+                        cout<<"Record saved successfully! \n"; 
+                    }
+                    else
+                    {
+                        cout<<"Database full!! Cannot add more records. \n";
+                    }
+                    break;
+                    case 2:
+                    if (currentcount == 0)
+                    {
+                        cout<<"No student record available.\n";
+                    }
+                    else
+                    {
+                        cout<<"---Total student records -------\n";
+                        for(int i=0;i<currentcount;i++)
+                            {
+                                database[i].displaydetails();                  
+                            }
+                    }
+                    break;
+                    case 3:
+                        {
+                            if(currentcount == 0)
+                            {
+                                cout<<"No student records available to search.\n";
+                                break;
+                            }
+                            int Searchroll;
+                            bool found = false;
+                            cout<<"enter roll number to search:";
+                            cin>>Searchroll;
+                            cout<<"\n";
+
+                            for(int i=0;i<currentcount;i++)
+                                {
+                                if(database[i].getRollnumber() == Searchroll)
+                                {
+                                    cout<<"------Record found-------\n";
+                                    database[i].displaydetails();
+                                    found == true;
+                                    break;
+                                }
+                                }
+                            if(found==false)
+                            {
+                                cout<<"Student with roll number"<<Searchroll<<"not found.\n";    
+                            }
+                            break;
+                            
+                        }
+                    case 4:
+                    cout<<"existing system.Good bye!!\n";
+                    break;
+                    default:
+                    cout<<"Invalid choice!! please choose between 1 and 4.\n";
+                }            
+        }
+        while(choice=!4);
+    return 0;   
+}
