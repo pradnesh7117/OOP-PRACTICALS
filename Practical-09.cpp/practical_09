@@ -1,1 +1,50 @@
+#include <iostream>
+#include <string>
+using namespace std;
 
+class Vehicle
+{
+protected:
+    string registrationNo;
+    string brand;
+
+public:
+    Vehicle(string reg, string b)
+    {
+        registrationNo = reg;
+        brand = b;
+    }
+
+    void displayCommon() const
+    {
+        cout << "Registration No: " << registrationNo << endl;
+        cout << "Brand: " << brand << endl;
+    }
+};
+
+class Car : public Vehicle
+{
+    int seats;
+
+public:
+    Car(string reg, string b, int s) : Vehicle(reg, b)
+    {
+        seats = s;
+    }
+
+    void display() const
+    {
+        cout << "Car Details" << endl;
+        displayCommon();
+        cout << "Seating capacity: " << seats << endl;
+        cout << "-------------------" << endl;
+    }
+};
+
+int main()
+{
+    Car car("MH 12 AB 1234", "Toyota", 5);
+    car.display();
+
+    return 0;
+}
